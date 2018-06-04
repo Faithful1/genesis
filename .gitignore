@@ -1,0 +1,20 @@
+# track this file .gitignore (i.e. do NOT ignore it)
+!.gitignore
+
+# cloud secrets
+.env
+
+# ignore all databases and backups
+/services/db
+
+# ignore plugins
+/services/front/plugins
+
+# ignore upgrade
+/services/front/upgrade
+
+# ignore uploads
+/services/front/uploads
+
+# ignore reddor theme
+/services/front/themes/reddoor

@@ -1,0 +1,22 @@
+version: '2'
+
+
+services:
+
+  db:
+    volumes:
+      - ./services/db/prod/data:/var/lib/mysql
+
+  db_backup:
+    image: deitch/mysql-backup
+    restart: always
+    volumes:
+      - ./services/db/prod/backups:/db
+    env_file: .env
+    environment:
+      DBSERVER: db
+      DBPORT: $DB_PORT
+      DB_DUMP_TARGET: '/db'
+      DB_NAMES: $DB_NAME
+      DB_USER: $DB_USERNAME
+      DB_PASSWORD: $DB_PASSWORD

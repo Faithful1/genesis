@@ -1,0 +1,34 @@
+{
+  "name": "@Faithful1/yatujobs",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "setup": "node index.js",
+    "start": "docker-compose -f docker-compose.yml -f docker-compose-dev.yml -p yatujobs-dev up -d --build",
+    "stack": "docker-compose -f docker-compose.yml -f docker-compose-dev.yml -p yatujobs-dev",
+    "logs": "docker-compose -f docker-compose.yml -f docker-compose-dev.yml -p yatujobs-dev logs -f",
+    "stop": "docker-compose -f docker-compose.yml -f docker-compose-dev.yml -p yatujobs-dev down",
+    "start:stage": "docker-compose -f docker-compose.yml -f docker-compose-stage.yml -p yatujobs-stage up --build -d",
+    "stack:stage": "docker-compose -f docker-compose.yml -f docker-compose-stage.yml -p yatujobs-stage",
+    "logs:stage": "docker-compose -f docker-compose.yml -f docker-compose-stage.yml -p yatujobs-stage logs -f",
+    "stop:stage": "docker-compose -f docker-compose.yml -f docker-compose-stage.yml -p yatujobs-stage down",
+    "start:prod": "docker-compose -f docker-compose.yml -f docker-compose-prod.yml -p yatujobs-prod up --build -d",
+    "stack:prod": "docker-compose -f docker-compose.yml -f docker-compose-prod.yml -p yatujobs-prod",
+    "logs:prod": "docker-compose -f docker-compose.yml -f docker-compose-prod.yml -p yatujobs-prod logs -f",
+    "stop:prod": "docker-compose -f docker-compose.yml -f docker-compose-prod.yml -p yatujobs-prod down",
+    "sync:start": "docker-sync start",
+    "sync:stop": "docker-sync stop",
+    "sync:clean": "npm stop && docker-sync clean && docker-sync start && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Faithful1/yatujobs"
+  },
+  "author": "faithful <faith@infused.io>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Faithful1/yatujobs/issues"
+  },
+  "homepage": "https://github.com/Faithful1/yatujobs#readme"
+}

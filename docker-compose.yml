@@ -1,0 +1,52 @@
+version: '2'
+
+
+services:
+
+  # nginx:
+  #   image: jwilder/nginx-proxy
+  #   restart: always
+  #   ports:
+  #     - "3000:80"
+  #   volumes:
+  #     - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  db:
+    image: mysql:5.7
+    restart: always
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+      MYSQL_DATABASE: $DB_NAME
+      MYSQL_USER: $DB_USERNAME
+      MYSQL_PASSWORD: $DB_PASSWORD
+
+  front:
+    depends_on:
+      - db
+    image: wordpress:4-php7.0
+    restart: always
+    volumes:
+      - ./services/front:/var/www/html/wp-content
+      - ./services/front/config/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file: .env
+    environment:
+      VIRTUAL_HOST: $HOSTNAME
+      WORDPRESS_DB_HOST: db:$DB_PORT
+      WORDPRESS_DB_NAME: $DB_NAME
+      WORDPRESS_DB_USER: $DB_USERNAME
+      WORDPRESS_DB_PASSWORD: $DB_PASSWORD
+
+  phpmyadmin:
+      depends_on:
+        - db
+      image: phpmyadmin/phpmyadmin
+      restart: always
+      ports:
+        - "3000:80"
+      environment:
+        PMA_HOST: db
+        MYSQL_ROOT_PASSWORD: $DB_PASSWORD
